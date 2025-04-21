@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salesforce Certified Integration Architect Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Ensure valid CSS with Tailwind overrides where needed */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-container {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1rem;
+      background-color: #ffffff;
+      flex-grow: 1;
+    }
+    .footer {
+      background-color: #f5f5f5;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #d1d5db;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .option:hover {
+      background-color: #f9fafb;
+    }
+    .option input {
+      margin-right: 0.75rem;
+    }
+    .mark-btn {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      color: #2563eb;
+      cursor: pointer;
+    }
+    .mark-btn input {
+      margin-right: 0.5rem;
+    }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .list-item .status {
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    .list-item .marked {
+      color: #2563eb;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-indigo-900 text-white p-2 flex justify-between items-center">
+    <h1 class="text-lg font-semibold">Salesforce Certified Integration Architect Quiz</h1>
+    <div class="progress text-base" id="progress">
+      Question 1 of 65
+    </div>
+  </header>
+  <div class="main-container" id="quiz-container">
+    <div class="mark-btn">
+      <input type="checkbox" id="mark-checkbox"> <label for="mark-checkbox">Mark</label>
+    </div>
+    <div class="question-text text-lg font-medium mb-4" id="question-text"></div>
+    <div id="options" class="options"></div>
+    <div class="feedback mt-4 p-4 rounded hidden" id="feedback"></div>
+  </div>
+  <div class="main-container hidden" id="review-container">
+    <h2 class="text-xl font-bold mb-4">Review Answers</h2>
+    <div id="review-summary" class="mb-4"></div>
+    <div id="review-details"></div>
+  </div>
+  <div class="main-container hidden" id="list-container">
+    <h2 class="text-xl font-bold mb-4">Question List</h2>
+    <div id="list-details"></div>
+  </div>
+  <div class="main-container hidden" id="results-container">
+    <h2 class="text-xl font-bold mb-4">Quiz Results</h2>
+    <div id="results-summary" class="mb-4"></div>
+    <div id="results-details"></div>
+  </div>
+  <footer class="footer">
+    <div>
+      <button id="prev-btn" class="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed" disabled>Previous</button> <button id="next-btn" class="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed">Next</button>
+    </div>
+    <div>
+      <button id="review-btn" class="bg-amber-500 text-white px-4 py-2 rounded font-medium hover:bg-amber-600 mr-2">Review</button> <button id="show-answer-btn" class="bg-gray-600 text-white px-4 py-2 rounded font-medium hover:bg-gray-700 mr-2">Show Answer</button> <button id="show-list-btn" class="bg-gray-600 text-white px-4 py-2 rounded font-medium hover:bg-gray-700 mr-2">Show List</button>
+    </div>
+    <div>
+      <button id="save-session-btn" class="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700 mr-2">Save Session</button> <button id="end-exam-btn" class="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700">End Exam</button>
+    </div>
+  </footer>
+  <script>
+    // Continuing the questions array from ID 55
+    const questions = [
+      {
+        id: 1,
+        text: "Northern Trail Outfitters requires an integration to be set up between one of its Salesforce orgs and an External Data Source using Salesforce Connect. The External Data Source supports Open Data Protocol. Which configuration could an integration architect recommend be implemented in order to secure requests coming from Salesforce?",
+        options: [
+          { value: "A", text: "Configure a certificate for OData connection." },
+          { value: "B", text: "Configure Identity Type for OData connection." },
+          { value: "C", text: "Configure Special Compatibility for OData connection." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Salesforce Connect uses OData to connect to external data sources. To secure requests, using a certificate for the OData connection ensures that communication is encrypted via SSL/TLS, providing a secure channel for data exchange.",
+        incorrectExplanations: {
+          "B": "Identity Type is more related to authentication mechanisms rather than securing the communication channel, which is the primary concern here.",
+          "C": "Special Compatibility is a vague option and not a standard Salesforce Connect configuration for securing requests."
+        }
+      },
+      {
+        id: 2,
+        text: "Northern Trail Outfitters (NTO) uses a custom mobile app to interact with its customers. One of the features of the app is Salesforce Chatter Feeds. NTO wants to automatically post a Chatter item to Twitter whenever the post includes the #thanksNTO hashtag. Which API should an integration architect use to meet this requirement?",
+        options: [
+          { value: "A", text: "Streaming API to generate PushTopic" },
+          { value: "B", text: "Connect REST API" },
+          { value: "C", text: "REST API" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "The REST API is the most appropriate choice for posting to an external system like Twitter when a specific action (Chatter post with a hashtag) occurs. You can use the REST API to create a Chatter post and then call an external Twitter API to post the message.",
+        incorrectExplanations: {
+          "A": "The Streaming API is better suited for real-time notifications, not for posting actions to external systems like Twitter.",
+          "B": "The Connect REST API is more suited for community-related integrations, not for Chatter-to-Twitter posting."
+        }
+      },
+      {
+        id: 3,
+        text: "Northern Trail Outfitters has recently implemented middleware for orchestration of services across platforms. The Enterprise Resource Planning (ERP) system being used requires transactions be captured near real time at a REST endpoint initiated in Salesforce when creating an Order object. Additionally, the Salesforce team has limited development resources and requires a low-code solution. Which option should fulfill the use case requirements?",
+        options: [
+          { value: "A", text: "Implement a Workflow Rule with Outbound Messaging to send SOAP messages to the designated endpoint." },
+          { value: "B", text: "Use Remote Process Invocation Fire and Forget pattern on insert on the Order object using Flow Builder." },
+          { value: "C", text: "Implement Change Data Capture on the Order object and leverage the replay ID in the middleware solution." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "The requirement for near real-time updates and a low-code solution points to using Salesforce Flow Builder with the Remote Process Invocation Fire and Forget pattern. This allows Salesforce to trigger an external REST call asynchronously without custom code, fitting the low-code constraint.",
+        incorrectExplanations: {
+          "A": "Workflow Rules with Outbound Messaging use SOAP, which isn’t ideal for REST endpoints, and may not meet the near real-time requirement as effectively.",
+          "C": "Change Data Capture is more suited for event-driven architectures rather than immediate REST calls triggered by record creation."
+        }
+      },
+      {
+        id: 4,
+        text: "A subscription-based media company's system landscape forces many subscribers to maintain multiple accounts and to log in more than once. An Identity and Access Management (IAM) system, which supports SAML and OpenId, was recently implemented to improve the subscriber experience through self-registration and single sign-on (SSO). The IAM system must integrate with Salesforce to give new self-service customers instant access to Salesforce Community Cloud. Which requirement should Salesforce Community Cloud support for self-registration and SSO?",
+        options: [
+          { value: "A", text: "OpenId Connect Authentication Provider and Registration Handler" },
+          { value: "B", text: "SAML SSO and Registration Handler" },
+          { value: "C", text: "OpenId Connect Authentication Provider and Justin-Time (JIT) provisioning" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "OpenId Connect is a modern authentication protocol supported by Salesforce for SSO, and JIT provisioning allows new users to be created instantly upon login, meeting the requirement for instant access.",
+        incorrectExplanations: {
+          "A": "While OpenId Connect is correct, a Registration Handler alone doesn’t support instant user creation like JIT provisioning does.",
+          "B": "SAML is supported, but it doesn’t leverage OpenId Connect, which the IAM system also supports, and lacks JIT provisioning for instant access."
+        }
+      },
+      {
+        id: 5,
+        text: "The URL for an external service has been changed without prior notice. The service provides up-to-date money exchange rates that are accessed several times from Salesforce and are a business-critical function for end users. Which solutions should an integration architect recommend be implemented to minimize potential downtime for users in this situation?",
+        options: [
+          { value: "A", text: "Named Credentials and Content Security Policies" },
+          { value: "B", text: "Remote Site Settings and Named Credentials" },
+          { value: "C", text: "Enterprise Service Bus (ESB) and Remote Site Settings" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Named Credentials allow you to store and manage external service URLs securely, making it easy to update the URL without code changes, thus minimizing downtime. Remote Site Settings are required to allow Salesforce to make callouts to the external endpoint.",
+        incorrectExplanations: {
+          "A": "Content Security Policies are more relevant for browser security than for managing callout URLs or minimizing downtime.",
+          "C": "Using an ESB adds unnecessary complexity for this use case, which can be handled more directly with Named Credentials."
+        }
+      },
+      {
+        id: 6,
+        text: "An integration architect has built a Salesforce application that integrates multiple systems and keeps them synchronized via Platform Events. What is taking place if events are only being published?",
+        options: [
+          { value: "A", text: "The platform events are published immediately before the Apex transaction completes." },
+          { value: "B", text: "The platform events are published after the Apex transaction completes." },
+          { value: "C", text: "The platform events are being published from Apex." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Platform Events are published after the Apex transaction completes successfully, ensuring data consistency.",
+        incorrectExplanations: {
+          "A": "Events are not published before the transaction completes; they are queued and published post-commit to ensure reliability.",
+          "C": "This option is vague and doesn’t address the timing of the publication, which is the core of the question."
+        }
+      },
+      {
+        id: 7,
+        text: "Universal Containers (UC) is currently managing a custom monolithic web service that runs on an on-premise server. This monolithic web service is responsible for Point-to-Point (P2P) integrations between: 1. Salesforce and a legacy billing application, 2. Salesforce and a cloud-based Enterprise Resource Planning (ERP) application, 3. Salesforce and a data lake. UC has found that the tight interdependencies between systems are causing integrations to fail. What should an integration architect recommend to decouple the systems and improve the performance of the integrations?",
+        options: [
+          { value: "A", text: "Move the custom monolithic web service from on-premise to a cloud provider." },
+          { value: "B", text: "Leverage modular design by breaking up the web service into smaller pieces for a microservice architecture." },
+          { value: "C", text: "Use the Salesforce Bulk API when integrating back into Salesforce." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Breaking the monolithic web service into a microservice architecture decouples the systems, reducing interdependencies and improving scalability and performance.",
+        incorrectExplanations: {
+          "A": "Moving to a cloud provider doesn’t address the core issue of tight coupling within the monolithic service.",
+          "C": "The Bulk API is irrelevant for decoupling integrations; it’s designed for high-volume data operations, not system architecture."
+        }
+      },
+      {
+        id: 8,
+        text: "Universal Containers (UC) has embarked on a Salesforce transformation journey. UC will decommission its legacy CRM system and migrate data to Salesforce. The data migration team asked for a recommendation to optimize the performance of the data load to Salesforce. Which approach should be used to meet the requirement?",
+        options: [
+          { value: "A", text: "Use Bulk API to process jobs in serial mode." },
+          { value: "B", text: "Contact Salesforce Support to schedule performance load." },
+          { value: "C", text: "Use Bulk API to process jobs in parallel mode." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "The Bulk API in parallel mode is designed for high-volume data loads, optimizing performance by processing multiple batches concurrently.",
+        incorrectExplanations: {
+          "A": "Serial mode is slower and less efficient for large datasets, as it processes batches sequentially.",
+          "B": "Contacting Salesforce Support for a performance load is unnecessary, as Bulk API is a standard feature available for use."
+        }
+      },
+      {
+        id: 9,
+        text: "A Salesforce customer is planning to roll out Salesforce for all of their sales and service staff. Senior management has requested that monitoring be in place for Operations to notify any degradation in Salesforce performance. How should an integration consultant implement monitoring?",
+        options: [
+          { value: "A", text: "Identify critical business processes and establish automation to monitor performance against established benchmarks." },
+          { value: "B", text: "Use APIEVENT to track all user-initiated API calls through SOAP, REST, or Bulk API." },
+          { value: "C", text: "Use Salesforce API Limits to capture current API usage and configure alerts for monitoring." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Monitoring critical business processes with automation ensures proactive detection of performance degradation, aligning with operational needs.",
+        incorrectExplanations: {
+          "B": "APIEVENT is more suited for auditing API usage, not for monitoring performance degradation directly.",
+          "C": "API Limits focus on usage limits rather than performance degradation, making this option less relevant."
+        }
+      },
+      {
+        id: 10,
+        text: "A large consumer goods manufacturer operating in multiple countries is planning to implement Salesforce for its sales and support operations globally. The manufacturer has the following security requirements: 1. Internal users from each country have to be authenticated with their local active directory. 2. Customers can create their own login or use Google login. 3. Partners have to be authenticated through a central system which is to be determined. 4. Internal users will have access to the central Enterprise Resource Planning (ERP) with their credentials maintained in the ERP system. 5. Additional internal systems will be integrated with Salesforce for sales and support business processes. Which requirement should the integration architect evaluate while designing the integration needs of this project?",
+        options: [
+          { value: "A", text: "Evaluate the build of a custom authentication mechanism for users in each country and support for customers and partners." },
+          { value: "B", text: "Evaluate Salesforce native authentication mechanism for all users including customers and partners." },
+          { value: "C", text: "Consider a third-party single sign-on (SSO) solution supporting all user authentication including customer and partner." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "A third-party SSO solution supporting SAML or OpenId Connect can handle diverse authentication needs (local Active Directory, Google login, central system for partners) and integrate with ERP credentials, providing a unified authentication framework.",
+        incorrectExplanations: {
+          "A": "Building a custom authentication mechanism for each country is complex and resource-intensive, not scalable for diverse user types.",
+          "B": "Salesforce native authentication mechanisms may not fully support integration with local Active Directories or a to-be-determined partner system."
+        }
+      },
+      {
+        id: 11,
+        text: "Universal Containers (UC) is a large printing company that sells advertisement banners. The company works with third-party agents on banner initial design concepts. The design files are stored in an on-premise file store that can be accessed by UC internal users and third-party agencies. UC would like to collaborate with the third-party agencies on the design files and allow them to view the design files in the community. The conceptual design files size is 2.5 GB. Which solution should an integration architect recommend?",
+        options: [
+          { value: "A", text: "Use Salesforce Files to link the files to Salesforce records and display the record and the files in the community." },
+          { value: "B", text: "Create a custom object to store the file location URL; when a community user clicks on the file URL, redirect the user to the on-premise system file location." },
+          { value: "C", text: "Create a Lightning component with a Request and Reply integration pattern to allow the community users to download the design files." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Salesforce Files (Content Documents) can handle large files (up to 2GB in communities) and allows linking files to records, making them accessible in the community for collaboration.",
+        incorrectExplanations: {
+          "B": "Redirecting to an on-premise system via URL may pose security risks and requires additional authentication handling, making it less seamless.",
+          "C": "A custom Lightning component with Request and Reply adds unnecessary complexity for a file-sharing use case that Salesforce Files can handle natively."
+        }
+      },
+      {
+        id: 12,
+        text: "An integration architect has been tasked with integrating Salesforce with an on-premises system. Due to some established policies, this system must remain on-premises. What should the integration architect use to build a solution for this requirement?",
+        options: [
+          { value: "A", text: "Use Salesforce Connect if the database supports Open Database Connectivity (ODBC)." },
+          { value: "B", text: "Use Heroku Connect if the data is hosted in Heroku." },
+          { value: "C", text: "Use Salesforce Connect if the database supports Open Data Protocol (OData)." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Salesforce Connect with OData support allows seamless integration with on-premises systems by exposing data as external objects, aligning with the requirement to keep the system on-premises.",
+        incorrectExplanations: {
+          "A": "While ODBC is supported by Salesforce Connect, OData is a more modern and widely used protocol for such integrations.",
+          "B": "Heroku Connect is irrelevant since the system must remain on-premises, not hosted in Heroku."
+        }
+      },
+      {
+        id: 13,
+        text: "Which Web Services Description Language (WSDL) should an architect consider when creating an integration that might be used for more than one Salesforce org and different metadata?",
+        options: [
+          { value: "A", text: "Partner WSDL" },
+          { value: "B", text: "SOAP API WSDL" },
+          { value: "C", text: "Enterprise WSDL" }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "The Partner WSDL is loosely typed and designed to work across multiple Salesforce orgs with different metadata, making it ideal for generic integrations.",
+        incorrectExplanations: {
+          "B": "SOAP API WSDL is a vague option; it’s not a specific type like Partner or Enterprise WSDL.",
+          "C": "Enterprise WSDL is tightly coupled to a specific org’s metadata, making it less suitable for multiple orgs with different metadata."
+        }
+      },
+      {
+        id: 14,
+        text: "A customer is evaluating the Platform Events solution and would like help in comparing/contrasting it with Outbound Messaging for real-time/near-real time needs. They expect 3,000 customers to view messages in Salesforce. What should be evaluated and highlighted when deciding between the solutions?",
+        options: [
+          { value: "A", text: "Both Platform Events and Outbound Messaging are highly scalable. However, unlike Outbound Messaging, only Platform Events have Event Delivery and Event Publishing limits to be considered." },
+          { value: "B", text: "In both Platform Events and Outbound Messaging, the event messages are retried by and delivered in sequence, and only once. Salesforce ensures there is no duplicate message delivery." },
+          { value: "C", text: "Message sequence is possible in Outbound Messaging, but not guaranteed with Platform Events. Both offer very high reliability. Fault handling and recovery are fully handled by Salesforce." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Platform Events have specific limits (e.g., Event Delivery and Publishing limits) that need to be considered for scalability, especially with 3,000 customers, whereas Outbound Messaging does not have these limits but is less suited for real-time needs.",
+        incorrectExplanations: {
+          "B": "Outbound Messaging ensures sequence and no duplicates, but Platform Events do not guarantee sequence and may have duplicates if not handled properly.",
+          "C": "While Outbound Messaging supports message sequencing, Platform Events can also maintain sequence with proper design (e.g., using replay IDs), making this option partially incorrect."
+        }
+      },
+      {
+        id: 15,
+        text: "Northern Trail Outfitters (NTO) uses Salesforce to track leads, opportunities, and order details that convert leads to customers. However, orders are managed by an external (remote) system. Sales reps want to view up-to-date real-time order information in Salesforce. NTO wants the data to only persist in the external system. Which type of integration should meet this business requirement?",
+        options: [
+          { value: "A", text: "Data Synchronization" },
+          { value: "B", text: "Data Virtualization" },
+          { value: "C", text: "Process Orchestration" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Data Virtualization, using tools like Salesforce Connect, allows real-time access to external data without storing it in Salesforce, meeting the requirement to keep data in the external system.",
+        incorrectExplanations: {
+          "A": "Data Synchronization would involve copying data into Salesforce, which contradicts the requirement to persist data only in the external system.",
+          "C": "Process Orchestration focuses on coordinating business processes, not on real-time data access without persistence."
+        }
+      },
+      {
+        id: 16,
+        text: "A company needs to be able to send data from Salesforce to a homegrown system behind a corporate firewall. The data needs to be pushed only one way and doesn't need to be sent in real time. The average volume is 2 million records per day. What should an integration architect consider when choosing the right option in building the integration between the external system and Salesforce?",
+        options: [
+          { value: "A", text: "Due to high volume of records, the external system will need to use a BULK API Rest endpoint to connect to Salesforce." },
+          { value: "B", text: "Due to high volume of records, number of concurrent requests can hit the limit for the REST API call to the external system." },
+          { value: "C", text: "Due to high volume of records, a third-party integration tool is required to stage records off platform." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "For high-volume data pushes (2 million records per day), the number of concurrent REST API requests to the external system could hit limits, requiring careful throttling or batching strategies.",
+        incorrectExplanations: {
+          "A": "The Bulk API is for loading data into Salesforce, not for the external system to receive data, making this option incorrect.",
+          "C": "A third-party tool isn’t necessarily required; Salesforce can handle this volume with proper design (e.g., batching REST calls)."
+        }
+      },
+      {
+        id: 17,
+        text: "Universal Containers (UC) is a global financial company that sells financial products and services including bank accounts, loans, and insurance. UC uses Salesforce Service Cloud to service its customers via calls and live chat. Support agents open bank accounts on the spot for customers who inquire about UC bank accounts. UC's core banking system is the system of record for bank accounts, and all accounts opened in Salesforce have to be synced in real time to the core banking system. Support agents need to inform the customers with the newly created bank account ID, which has to be generated from the core banking system. Which integration pattern is recommended?",
+        options: [
+          { value: "A", text: "Salesforce platform events" },
+          { value: "B", text: "Request and Reply" },
+          { value: "C", text: "Streaming API to generate PushTopic" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "The Request and Reply pattern is ideal for real-time synchronous calls where Salesforce needs to send a request to the core banking system and receive a response (the bank account ID) immediately.",
+        incorrectExplanations: {
+          "A": "Platform Events are better for asynchronous, event-driven integrations, not for real-time synchronous responses.",
+          "C": "Streaming API with PushTopic is for real-time notifications, not for request-reply scenarios."
+        }
+      },
+      {
+        id: 18,
+        text: "Northern Trail Outfitters is creating a distributable Salesforce package for other Salesforce orgs within the company. The package needs to call into a custom Apex REST endpoint in the central org. The security team wants to ensure a specific integration account is used in the central org that they will authorize after installation of the package. Which item should an architect recommend to secure the integration in the package?",
+        options: [
+          { value: "A", text: "Use an encrypted field to store the password that the security team enters, and use password management for external orgs and set the encryption method to TLS 1.2." },
+          { value: "B", text: "Contact Salesforce Support and create a case to temporarily enable API access for managed packages." },
+          { value: "C", text: "Create an authentication provider in the package and set the consumer key and consumer secret of the connected app in the central org." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Using an authentication provider with a connected app allows the package to securely authenticate using a specific integration account, which the security team can authorize.",
+        incorrectExplanations: {
+          "A": "Storing passwords in encrypted fields is not a secure or recommended practice for integrations; Named Credentials or connected apps are better.",
+          "B": "Contacting Salesforce Support to enable API access is unnecessary and not a scalable solution for managed packages."
+        }
+      },
+      {
+        id: 19,
+        text: "The director of customer service at Northern Trail Outfitters wants to capture and trend specific business events that occur in Salesforce in real time. The metrics will be accessed in an ad-hoc manner using an external analytics system. The events are as follows: 1. A customer initiates a product exchange via a Case. 2. A customer service rep clicks on the 'Authorize Exchange Product' menu item in the Case. 3. A customer initiates a subscription cancellation via a Case. 4. A customer service rep clicks on the 'Initiate Refund' menu item in the Case. Which solution should meet these business requirements?",
+        options: [
+          { value: "A", text: "Case Workflow Rule that sends an Outbound Message" },
+          { value: "B", text: "Case after insert Trigger that executes a callout" },
+          { value: "C", text: "Case Trigger after Insert, after update to publish the platform event" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Using a Case Trigger to publish Platform Events allows real-time capture of events (inserts and updates) and integration with an external analytics system via event subscription.",
+        incorrectExplanations: {
+          "A": "Outbound Messaging is asynchronous but less flexible for real-time event streaming compared to Platform Events.",
+          "B": "A direct callout from a trigger can lead to governor limit issues and isn’t ideal for real-time event publishing."
+        }
+      },
+      {
+        id: 20,
+        text: "A global financial company sells financial products and services that include: 1. Bank accounts, 2. Loans, 3. Insurance. The company has a state-of-the-art core banking system that is the master system to store financial transactions, financial products, and customer information. The core banking system currently processes 1 million financial transactions per day. The CTO for the company is considering building a community portal so that customers can review their bank account details, update their information, and review the financial transactions. What should an integration architect recommend as a solution to enable customer community users to view their financial transactions?",
+        options: [
+          { value: "A", text: "Migrate the financial transaction records to a Salesforce custom object and use an extract, transform, and load (ETL) tool to keep systems in sync." },
+          { value: "B", text: "Use Salesforce Connect to display the financial transactions as an external object." },
+          { value: "C", text: "Use Iframe to display core banking financial transactions data in the customer community." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Salesforce Connect with external objects allows community users to view financial transactions in real-time without migrating data into Salesforce, keeping the core banking system as the master.",
+        incorrectExplanations: {
+          "A": "Migrating 1 million transactions per day into Salesforce is resource-intensive and unnecessary when Salesforce Connect can provide real-time access.",
+          "C": "Using an Iframe poses security risks (e.g., XSS vulnerabilities) and may not provide a seamless user experience in the community."
+        }
+      },
+      {
+        id: 21,
+        text: "Universal Containers (UC) is a global financial company that sells financial products and services including bank accounts, loans, and insurance. UC uses Salesforce Service Cloud to service its customers via calls and live chat. The company has a daily scheduled Batch Apex job that generates invoices from a given set of orders. UC requested building a resilient integration for this Batch Apex job in case the invoice generation fails. What should an integration architect recommend to fulfill the requirement?",
+        options: [
+          { value: "A", text: "Build Batch Retry operations." },
+          { value: "B", text: "Build Batch Retry and Error Handling using BatchApexErrorEvent." },
+          { value: "C", text: "Build Batch Retry Error Handling in the middleware." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Using BatchApexErrorEvent allows Salesforce to capture batch failures and implement retry logic within the platform, ensuring resilience without external dependencies.",
+        incorrectExplanations: {
+          "A": "Batch Retry operations alone are vague and lack the specific error-handling mechanism provided by BatchApexErrorEvent.",
+          "C": "Moving error handling to middleware adds complexity and dependency, which isn’t necessary when Salesforce can handle this natively."
+        }
+      },
+      {
+        id: 22,
+        text: "A company that is a leading provider of training delivers courses to students globally. The company decided to use Customer Community in order to allow students to log in to the community, register for courses, and pay course fees. The company has a payment gateway that takes more than 30 seconds to process the payment transaction. Students would like to get the payment to be in real time so in case an error happens, the students can retry the payment process. What is the recommended integration approach to process payments based on this requirement?",
+        options: [
+          { value: "A", text: "Use Platform Events to process payment to the payment gateway." },
+          { value: "B", text: "Use Continuation to process payment to the payment gateway." },
+          { value: "C", text: "Use Request and Reply to make an API call to the payment gateway." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Continuation in Apex allows for long-running callouts (up to 60 seconds) while keeping the UI responsive, enabling real-time payment processing and error handling for retries.",
+        incorrectExplanations: {
+          "A": "Platform Events are asynchronous and not suitable for real-time user interactions requiring immediate feedback.",
+          "C": "Request and Reply is a synchronous pattern, but without Continuation, it may hit governor limits for long-running callouts (over 30 seconds)."
+        }
+      },
+      {
+        id: 23,
+        text: "Universal Containers (UC) uses Salesforce to track the following customer data: 1. Leads, 2. Contacts, 3. Accounts, 4. Cases. Salesforce is considered to be the system of record for the customer. In addition to Salesforce, customer data exists in an Enterprise Resource Planning (ERP) system, ticketing system, and enterprise data lake. Each of these additional systems has their own unique identifier. UC plans on using middleware to integrate Salesforce with the external systems. UC has a requirement to update the proper external system with record changes in Salesforce and vice versa. Which solution should an integration architect recommend to handle this requirement?",
+        options: [
+          { value: "A", text: "Design an MDM solution that maps external IDs to the Salesforce record ID." },
+          { value: "B", text: "Locally cache external IDs at the middleware layer and design business logic to map updates between systems." },
+          { value: "C", text: "Use Change Data Capture to update downstream systems accordingly when a record changes." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "A Master Data Management (MDM) solution that maps external IDs to Salesforce record IDs ensures consistent record synchronization across systems, leveraging middleware for integration.",
+        incorrectExplanations: {
+          "B": "Local caching in middleware adds complexity and potential data inconsistency risks compared to a centralized MDM approach.",
+          "C": "Change Data Capture is useful for event-driven updates but doesn’t address the need to map IDs across systems for bidirectional sync."
+        }
+      },
+      {
+        id: 24,
+        text: "Universal Containers (UC) is a leading provider of management training globally. UC embarked on a Salesforce transformation journey to allow students to register for courses in the Salesforce Community. UC has a learning system that masters all courses and student registration. UC requested a near real-time feed of student registration from Salesforce to the learning system. The integration architect recommends using Salesforce Platform Events. Which API should be used for the Salesforce Platform Event solution?",
+        options: [
+          { value: "A", text: "Streaming API" },
+          { value: "B", text: "REST API" },
+          { value: "C", text: "SOAP API" }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "The Streaming API is used to subscribe to Platform Events, enabling near real-time data feeds from Salesforce to external systems like the learning system.",
+        incorrectExplanations: {
+          "B": "The REST API is for request-response interactions, not for streaming events in near real-time.",
+          "C": "The SOAP API is for synchronous integrations and not suited for event streaming."
+        }
+      },
+      {
+        id: 25,
+        text: "Northern Trail Outfitters uses Salesforce to track leads and opportunities, and to capture order details. However, Salesforce isn't the system that holds or processes orders. After the order details are captured in Salesforce, an order must be created in the remote system, which manages the order's lifecycle. The integration architect for the project is recommending a remote system that will subscribe to the platform event defined in Salesforce. Which integration pattern should be used for this business use case?",
+        options: [
+          { value: "A", text: "Remote Call-In" },
+          { value: "B", text: "Request and Reply" },
+          { value: "C", text: "Fire and Forget" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Fire and Forget with Platform Events allows Salesforce to publish an event that the remote system subscribes to, asynchronously creating the order without waiting for a response.",
+        incorrectExplanations: {
+          "A": "Remote Call-In implies the external system initiates the call, which isn’t the case here.",
+          "B": "Request and Reply requires synchronous communication, which isn’t suitable for this asynchronous use case."
+        }
+      },
+      {
+        id: 26,
+        text: "A customer's enterprise architect has identified requirements around caching, queuing, error handling, alerts, retries, event handling, etc. The company has asked the integration architect to help fulfill such aspects with its Salesforce program. Which recommendation should the integration architect make?",
+        options: [
+          { value: "A", text: "Message transformation and protocol translation should be done within Salesforce. Recommend leveraging Salesforce native protocol conversion capabilities as middleware tools are NOT suited for such tasks." },
+          { value: "B", text: "Transform Fire and Forget mechanism to Request and Reply which should be handled by middleware tools (like ETL/ESB) to improve performance." },
+          { value: "C", text: "Provide true message queuing for integration scenarios (including orchestration, process choreography, quality of service, etc.) given that a middleware solution is required." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Middleware solutions (like ESBs) are designed to handle caching, queuing, error handling, retries, and event handling, providing true message queuing and orchestration capabilities.",
+        incorrectExplanations: {
+          "A": "Salesforce isn’t designed for complex message transformation or queuing; middleware is better suited for these tasks.",
+          "B": "Converting Fire and Forget to Request and Reply increases latency and isn’t ideal for performance in this context."
+        }
+      },
+      {
+        id: 27,
+        text: "Northern Trail Outfitters wants to use Salesforce as a front end for creating accounts using the lead-to-opportunity process. 1. An order is created in Salesforce when the opportunity is Closed/Won, but the back-end Enterprise Resource Planning (ERP) system is the data master for order. 2. The customer wants to be able to see within Salesforce all the stages of order processing, like Order Created, Order Shipped, and Order Paid, that are within the retention window. Which message durability consideration should an integration architect make when designing a solution to meet these business requirements?",
+        options: [
+          { value: "A", text: "When subscribing to Salesforce Event Bus, ReplayID is used with a value of -1 to be able to see new events." },
+          { value: "B", text: "High-volume event messages are stored for 24 hours (1 day)." },
+          { value: "C", text: "When subscribing to Salesforce Event Bus, ReplayID is used with a value of -2 to be able to see old and new events." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Using ReplayID with a value of -2 allows the ERP system to subscribe to Salesforce Event Bus and see both old and new events, ensuring all order stages within the retention window are visible.",
+        incorrectExplanations: {
+          "A": "ReplayID with -1 only replays new events, missing historical stages needed for visibility.",
+          "B": "The 24-hour storage limit for high-volume events is a constraint, not a solution for message durability."
+        }
+      },
+      {
+        id: 28,
+        text: "A customer is migrating from an old legacy system to Salesforce. As part of the modernization effort, the customer would like to integrate all existing systems that currently work with its legacy application with Salesforce. Which constraint/pain-point should an integration architect consider when choosing the integration pattern/mechanism?",
+        options: [
+          { value: "A", text: "Reporting and usability requirements" },
+          { value: "B", text: "Multi-language and multi-currency requirement" },
+          { value: "C", text: "System types: APIs, filesystems, Email" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "The types of systems (APIs, filesystems, email) directly impact the integration pattern, as they determine the mechanisms (e.g., API calls, file imports, email triggers) needed for integration.",
+        incorrectExplanations: {
+          "A": "Reporting and usability are end-user concerns, not direct constraints for choosing an integration pattern.",
+          "B": "Multi-language and multi-currency are functional requirements, not integration constraints."
+        }
+      },
+      {
+        id: 29,
+        text: "Universal Containers (UC) currently owns a middleware tool and has developed an API-led integration architecture with three API tiers: The first tier interfaces directly with the systems of engagement. The second tier implements business logic and aggregates data. The third tier interfaces directly with the systems of record. Some of the systems of engagement will be a mobile application, a web application, and Salesforce. UC has a business requirement to return data to the systems of engagement in different formats while also enforcing different security protocols. What should an integration architect recommend to meet these requirements?",
+        options: [
+          { value: "A", text: "Implement an API Gateway that all systems of engagement must interface with first." },
+          { value: "B", text: "Enforce separate security protocols and return formats at the first tier of the API-led architecture." },
+          { value: "C", text: "Leverage an Identity Provider solution that communicates with the API tiers via SAML." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "An API Gateway can enforce different security protocols and transform data formats for various systems of engagement, ensuring consistency and security across the API-led architecture.",
+        incorrectExplanations: {
+          "B": "Enforcing protocols at the first tier adds complexity and doesn’t provide a centralized solution like an API Gateway.",
+          "C": "An Identity Provider with SAML addresses authentication but not data format transformation or security protocol enforcement."
+        }
+      },
+      {
+        id: 30,
+        text: "An architect decided to use Platform Events for integrating Salesforce with an external system for a company. What should an architect consider when processing this type of integration mechanism?",
+        options: [
+          { value: "A", text: "To publish an event, an integration user in Salesforce needs to create permissions on the event entity." },
+          { value: "B", text: "External system needs to have the same uptime in order to be able to keep up with Salesforce Platform Events." },
+          { value: "C", text: "Salesforce needs to be able to store information about the external system in order to know which event to send out." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Platform Events require proper permissions for the integration user to create (publish) events, ensuring the integration operates securely and correctly.",
+        incorrectExplanations: {
+          "B": "Platform Events are asynchronous; the external system doesn’t need the same uptime, as events can be replayed using ReplayID.",
+          "C": "Salesforce doesn’t need to store external system info; events are published, and the external system subscribes to them."
+        }
+      },
+      {
+        id: 31,
+        text: "A large business-to-consumer (B2C) customer is planning to implement Salesforce CRM to become a customer-centric enterprise. The goals for implementing Salesforce include: 1. Develop a 360-degree view of the customer. 2. Leverage Salesforce capabilities for marketing, sales, and service processes. 3. Reuse Enterprise capabilities built for quoting and order management processes. Which three systems from the current system landscape can be retired with the implementation of Salesforce?",
+        options: [
+          { value: "A", text: "Email Marketing, Sales Activity, and Case Management" },
+          { value: "B", text: "Order Management, Case Management, and Email Marketing" },
+          { value: "C", text: "Sales Activity, Order Management, and Case Management" }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Salesforce can natively handle Email Marketing (Marketing Cloud), Sales Activity (Sales Cloud), and Case Management (Service Cloud), allowing these systems to be retired while retaining Order Management capabilities externally.",
+        incorrectExplanations: {
+          "B": "Order Management should not be retired, as the requirement is to reuse existing enterprise capabilities for quoting and order management.",
+          "C": "Similarly, Order Management should not be retired, making this option incorrect."
+        }
+      },
+      {
+        id: 32,
+        text: "A customer imports data from an external system into Salesforce using Bulk API. These jobs have batch sizes of 2,000 and are run in parallel mode. The batches fail frequently with the error 'Max CPU time exceeded'. A smaller batch size will fix this error. What should be considered when using a smaller batch size?",
+        options: [
+          { value: "A", text: "Smaller batch size may exceed the concurrent API request limits." },
+          { value: "B", text: "Smaller batch size may increase time required to execute bulk jobs." },
+          { value: "C", text: "Smaller batch size can trigger 'Too many concurrent batches' error." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Reducing batch size increases the number of batches, which can lead to hitting the 'Too many concurrent batches' limit in Salesforce, causing failures.",
+        incorrectExplanations: {
+          "A": "Concurrent API request limits are more relevant for REST/SOAP API calls, not Bulk API batch processing.",
+          "B": "While smaller batches may increase total execution time, this isn’t the primary concern compared to hitting concurrency limits."
+        }
+      },
+      {
+        id: 33,
+        text: "Universal Containers (UC) sales representatives use Sales Cloud as their primary CRM. UC owns a legacy homegrown application that also stores a copy of customer data. Sales representatives may edit or update contact records in Salesforce if there is a change. Both Salesforce and the homegrown application should be kept synchronized for consistency. UC has the following requirements: 1. When a contact record in Salesforce is updated, the external homegrown application should also be updated. 2. The synchronization should be event-driven. 3. The integration should be asynchronous. Which option should an architect recommend to satisfy the requirements?",
+        options: [
+          { value: "A", text: "Leverage Platform Events to publish a custom event message containing changes to the Contact object." },
+          { value: "B", text: "Use an extract, transform, load (ETL) tool to keep Salesforce and the homegrown application in sync on a regular cadence." },
+          { value: "C", text: "Leverage Change Data Capture to track changes to the Contact object and write a CometD subscriber on the homegrown application." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Change Data Capture (CDC) with a CometD subscriber allows event-driven, asynchronous synchronization of Contact updates, meeting all requirements efficiently.",
+        incorrectExplanations: {
+          "A": "Platform Events can work but require more custom development compared to CDC, which is natively suited for this use case.",
+          "B": "ETL on a regular cadence isn’t event-driven or real-time, failing the requirement for event-driven synchronization."
+        }
+      },
+      {
+        id: 34,
+        text: "An integration architect has received a request to prevent employees that leave the company from accessing data in Salesforce after they are deactivated in the company's HR system. What should the integration architect determine before recommending a solution?",
+        options: [
+          { value: "A", text: "Data access prevention requirements, integration requirements, and system constraints" },
+          { value: "B", text: "Data access prevention requirements, then identify frequency" },
+          { value: "C", text: "Inbound integration requirements, then identify frequency" }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Understanding data access prevention requirements, integration requirements (e.g., how HR deactivation triggers Salesforce updates), and system constraints ensures a comprehensive solution.",
+        incorrectExplanations: {
+          "B": "Focusing only on access prevention and frequency misses broader integration and system constraints.",
+          "C": "Inbound integration requirements are part of the solution, but frequency alone doesn’t address the full scope of access prevention."
+        }
+      },
+      {
+        id: 35,
+        text: "Northern Trail Outfitters (NTO) has a requirement to encrypt a few widely-used standard fields. NTO also wants to be able to use these fields in record-triggered flows. Which security solution should an integration architect recommend to fulfill the business use case?",
+        options: [
+          { value: "A", text: "Classic Encryption" },
+          { value: "B", text: "Shield Platform Encryption" },
+          { value: "C", text: "Custom Encryption Fields" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Shield Platform Encryption supports encrypting standard fields and is compatible with record-triggered flows, meeting both requirements.",
+        incorrectExplanations: {
+          "A": "Classic Encryption doesn’t support standard fields or flow compatibility as robustly as Shield Platform Encryption.",
+          "C": "Custom Encryption Fields is a vague option and not a standard Salesforce feature for this use case."
+        }
+      },
+      {
+        id: 36,
+        text: "Given the diagram above, a Salesforce org, middleware, and Historical Data store exist with connectivity between them. Historical records are archived from Salesforce, moved to a Historical Data store (which houses 20 million records). When reviewing occasional special cases, call center agents that use Salesforce have requested access to view the historical case items that relate to submitted cases. Which mechanism and patterns are recommended to maximize declarative configuration?",
+        options: [
+          { value: "A", text: "Use an ESB tool with a Data Virtualization pattern, expose the OData endpoint, and then use Salesforce Connect to consume and display the external object alongside the Case object." },
+          { value: "B", text: "Use an ESB tool with a Request and Reply pattern, and then make a real-time Apex callout to the ESB endpoint to fetch and display historical data in a custom Lightning component related to the Case object." },
+          { value: "C", text: "Use an ESB tool with a Fire and Forget pattern, and then publish a platform event for the requested historical data." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Using Salesforce Connect with an OData endpoint (via ESB and Data Virtualization) allows declarative access to historical data as external objects, maximizing declarative configuration.",
+        incorrectExplanations: {
+          "B": "A Request and Reply pattern with Apex callouts requires custom code, reducing the use of declarative tools.",
+          "C": "Fire and Forget with Platform Events isn’t suitable for retrieving and displaying historical data on demand."
+        }
+      },
+      {
+        id: 37,
+        text: "An integration architect has designed a mobile application for Salesforce users to get data while on the road using a custom user interface (UI). The application is secured with OAuth and is currently functioning well. There is a new requirement where the mobile application needs to obtain the GPS coordinates and store them on a custom geolocation field. The geolocation field is secured with field-level security, so users can view the value without changing it. What should be done to meet the requirement?",
+        options: [
+          { value: "A", text: "The mobile device makes a REST API inbound call." },
+          { value: "B", text: "The mobile device receives a REST Apex callout call." },
+          { value: "C", text: "The mobile device makes a REST Apex inbound call." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "The mobile app should make a REST Apex inbound call to a custom Apex REST service in Salesforce to securely update the geolocation field, respecting field-level security.",
+        incorrectExplanations: {
+          "A": "A REST API inbound call is vague and doesn’t specify the target or mechanism for updating Salesforce fields.",
+          "B": "The mobile device receiving a callout isn’t logical; it should initiate the call to Salesforce."
+        }
+      },
+      {
+        id: 38,
+        text: "An enterprise customer is planning to implement Salesforce to support case management. Considering Salesforce capabilities, what should the integration architect evaluate when integrating Salesforce with the current system landscape?",
+        options: [
+          { value: "A", text: "Integrate Salesforce with Order Management System, Data Warehouse, and Case Management System." },
+          { value: "B", text: "Integrate Salesforce with Email Management System, Order Management System, and Case Management System." },
+          { value: "C", text: "Integrate Salesforce with Data Warehouse, Order Management, and Email Management System." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Salesforce can natively handle case management, so the architect should evaluate integrating with systems that complement case management, such as Data Warehouse (for analytics), Order Management (for order-related cases), and Email Management (for email interactions).",
+        incorrectExplanations: {
+          "A": "Integrating with a Case Management System is redundant since Salesforce Service Cloud already provides this functionality.",
+          "B": "Similarly, integrating with a Case Management System isn’t necessary given Salesforce’s capabilities."
+        }
+      },
+      {
+        id: 39,
+        text: "Northern Trail Outfitters (NTO) uses different shipping services for each of the 34 countries it serves. Services are added and removed frequently to optimize shipping times and costs. Sales representatives serve all NTO customers globally and need to select between valid services for the customer's country and request shipping estimates from that service. Which solution should an architect propose?",
+        options: [
+          { value: "A", text: "Use Platform Events to construct and publish shipping service updates." },
+          { value: "B", text: "Invoke middleware service to retrieve a list of valid shipping services." },
+          { value: "C", text: "Store shipping services in a picklist that is dependent on a country picklist." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Middleware can dynamically retrieve valid shipping services based on the country, handling frequent updates and providing real-time estimates via API calls.",
+        incorrectExplanations: {
+          "A": "Platform Events are for event-driven integrations, not for retrieving dynamic service lists on demand.",
+          "C": "A dependent picklist is static and can’t handle frequent updates or provide real-time estimates."
+        }
+      },
+      {
+        id: 40,
+        text: "A company accepts payment requests 24/7. Once the company accepts a payment request, its service level agreement (SLA) requires it to make sure each payment request is processed by its Payment System. The company tracks payment requests using a globally unique identifier created at the Data Entry Point. The company encounters intermittent update errors when two or more processes try to update the same Payment Request record at the same time. Which recommendation should an integration architect make to improve the company's SLA and update conflict handling?",
+        options: [
+          { value: "A", text: "Payment System should process a payment request only once." },
+          { value: "B", text: "Middleware should coordinate request delivery and payment processing." },
+          { value: "C", text: "Payment System and Middleware should automatically retry requests." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Middleware coordinating request delivery ensures that payment requests are processed sequentially, avoiding update conflicts and meeting the SLA.",
+        incorrectExplanations: {
+          "A": "Ensuring the Payment System processes a request only once doesn’t address the update conflict issue directly.",
+          "C": "Automatic retries may lead to further conflicts if not coordinated properly."
+        }
+      },
+      {
+        id: 41,
+        text: "What is the first thing an integration architect should validate if a callout from a Lightning web component to an external endpoint is failing?",
+        options: [
+          { value: "A", text: "The endpoint domain has been added to Cross-Origin Resource Sharing." },
+          { value: "B", text: "The endpoint URL has been added to Content Security Policies." },
+          { value: "C", text: "The endpoint URL has been added to Remote Site Settings." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "For a Lightning web component callout to succeed, the external endpoint URL must be added to Remote Site Settings in Salesforce to allow outbound requests.",
+        incorrectExplanations: {
+          "A": "Cross-Origin Resource Sharing (CORS) is relevant for browser-based calls, not for server-side callouts from Salesforce.",
+          "B": "Content Security Policies are for browser security, not for enabling outbound callouts."
+        }
+      },
+      {
+        id: 42,
+        text: "An integration architect has built a solution using REST API, updating Account, Contact, and other related information. The data volumes have increased, resulting in higher API calls consumed, and some days the limits are exceeded. A decision was made to decrease the number of API calls using bulk updates. The customer prefers to continue using REST API to avoid architecture changes. Which REST API composite resources should the integration architect use to allow up to 20 records in one API call?",
+        options: [
+          { value: "A", text: "SObject Tree" },
+          { value: "B", text: "Composite" },
+          { value: "C", text: "Batch" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "The Composite REST API resource allows up to 20 subrequests in a single API call, reducing the number of API calls for bulk updates.",
+        incorrectExplanations: {
+          "A": "SObject Tree is for creating nested records in a single call, not for bulk updates of independent records.",
+          "C": "Batch is not a REST API resource; it’s part of the Bulk API, which the customer wants to avoid."
+        }
+      },
+      {
+        id: 43,
+        text: "Northern Trail Outfitters has had an increase in requests from other business units to integrate opportunity information with other systems from Salesforce. The developers have started writing asynchronous @future callouts directly into the target systems. The CIO is concerned about the viability of this approach, scaling for future growth, and has requested a solution recommendation. What should be done to mitigate the CIO's concerns?",
+        options: [
+          { value: "A", text: "Implement an extract, transform, load (ETL) tool and perform nightly batch data loads to reduce network traffic using last modified dates on the Opportunity object to extract the right records." },
+          { value: "B", text: "Refactor the existing @future methods to use Enhanced External Services, import Open API 2.0 schemas, and update fields to use services instead of Apex." },
+          { value: "C", text: "Implement an Enterprise Service Bus for service orchestration, mediation, routing, and decouple dependencies across systems." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "An Enterprise Service Bus (ESB) decouples systems, provides scalability, and manages orchestration, addressing the CIO’s concerns about future growth and direct @future callouts.",
+        incorrectExplanations: {
+          "A": "Nightly ETL batches don’t address real-time integration needs or scalability concerns with @future methods.",
+          "B": "Enhanced External Services require synchronous calls, which may not align with the asynchronous nature of @future methods."
+        }
+      },
+      {
+        id: 44,
+        text: "Northern Trail Outfitters (NTO) has recently changed its Corporate Security Guidelines. The guidelines require that all cloud applications pass through a secure firewall before accessing on-premise resources. NTO is evaluating middleware solutions to integrate cloud applications with on-premise resources and services. Which consideration should an integration architect evaluate before choosing a middleware solution?",
+        options: [
+          { value: "A", text: "The middleware solution is able to interface directly with databases via an Open Database Connectivity (ODBC) interface." },
+          { value: "B", text: "An API Gateway component is deployable behind a Demilitarized Zone (DMZ) or perimeter network." },
+          { value: "C", text: "The middleware solution enforces the OAuth security protocol." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "Deploying an API Gateway behind a DMZ aligns with the secure firewall requirement, ensuring secure access to on-premise resources.",
+        incorrectExplanations: {
+          "A": "ODBC interfacing is irrelevant to the firewall requirement for cloud-to-on-premise access.",
+          "C": "OAuth is an authentication protocol, not directly related to firewall security requirements."
+        }
+      },
+      {
+        id: 45,
+        text: "An enterprise architect has requested the Salesforce integration architect to review the following and provide recommendations after carefully considering all constraints of the enterprise systems and Salesforce Platform limits. About 3,000 phone sales agents use a Salesforce Lightning user interface (UI) concurrently to check eligibility of a customer for a qualifying offer. There are multiple eligibility systems that provide this service and are hosted externally. However, their current response times could take up to 90 seconds. These eligibility systems can be accessed through APIs orchestrated via ESB (MuleSoft). All requests from Salesforce will have to traverse through the customer's API Gateway layer, and the API Gateway imposes a constraint of timing out requests after 9 seconds. Which recommendation should the integration architect make?",
+        options: [
+          { value: "A", text: "Recommend synchronous Apex callouts from Lightning to External Systems via Mule and implement polling on an API Gateway timeout." },
+          { value: "B", text: "Create a platform event in Salesforce Remote Call-In and use the platform event in Lightning UI to serve 3,000 concurrent users when responses are received by Mule." },
+          { value: "C", text: "Implement a 'Check Update' button that passes a requestID received from ESB (user action needed)." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Given the 9-second timeout constraint, a 'Check Update' button with a requestID allows asynchronous processing and user-driven polling, avoiding timeout issues.",
+        incorrectExplanations: {
+          "A": "Synchronous Apex callouts are limited to 10 seconds, which will fail with the 90-second response time of external systems.",
+          "B": "Platform Events with Remote Call-In aren’t suitable for this UI-driven, concurrent user scenario with timeout constraints."
+        }
+      },
+      {
+        id: 46,
+        text: "A developer has been tasked by the integration architect to build a solution based on the Streaming API. The developer has done some research and has found there are different implementations of the events in Salesforce (PushTopic Events, Change Data Capture, Generic Streaming, Platform Events), but is unsure of how to proceed with the implementation and asks the system architect for some guidance. What should the architect consider when making the recommendation?",
+        options: [
+          { value: "A", text: "PushTopic Events can define custom queries." },
+          { value: "B", text: "Change Data Capture does not have record access support." },
+          { value: "C", text: "Change Data Capture can be published from Apex." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "PushTopic Events allow defining custom SOQL queries, providing flexibility for specific use cases, which is a key consideration for Streaming API implementations.",
+        incorrectExplanations: {
+          "B": "Change Data Capture does support record access based on user permissions, making this statement incorrect.",
+          "C": "Change Data Capture events are system-generated and cannot be published directly from Apex."
+        }
+      },
+      {
+        id: 47,
+        text: "Northern Trail Outfitters is in the final stages of merging two Salesforce orgs, but needs to keep the retiring org available for a short period of time for lead management as it is connected to multiple public website forms. The sales department has requested that new leads are available in the new Salesforce instance within 30 minutes. Which approach requires the least amount of development effort?",
+        options: [
+          { value: "A", text: "Use the Tooling API with Process Builder to insert leads in real time." },
+          { value: "B", text: "Use the Composite REST API to aggregate multiple leads in a single call." },
+          { value: "C", text: "Call the Salesforce REST API to insert the lead into the target system." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Calling the Salesforce REST API to insert leads is a straightforward, low-effort solution that meets the 30-minute requirement without complex development.",
+        incorrectExplanations: {
+          "A": "The Tooling API with Process Builder is more complex and not ideal for real-time lead insertion.",
+          "B": "The Composite REST API, while efficient, requires more development effort to aggregate leads compared to a simple REST API call."
+        }
+      },
+      {
+        id: 48,
+        text: "A new Salesforce program has the following high-level abstract requirement: Business processes executed on Salesforce require data updates between their internal systems and Salesforce. Which relevant detail should an integration architect seek to specifically solve for integration architecture needs of the program?",
+        options: [
+          { value: "A", text: "Core functional and non-functional requirements for User Experience design, Encryption needs, Community, and license choices." },
+          { value: "B", text: "Integration Style, SME availability, and Program Governance details." },
+          { value: "C", text: "Timing aspects, real-time/near real-time (synchronous or asynchronous), batch and update frequency." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Timing aspects (real-time vs. batch, synchronous vs. asynchronous, update frequency) are critical for designing an integration architecture that meets data update needs.",
+        incorrectExplanations: {
+          "A": "User Experience design and license choices are unrelated to integration architecture specifics.",
+          "B": "SME availability and governance are program management concerns, not integration architecture details."
+        }
+      },
+      {
+        id: 49,
+        text: "Northern Trail Outfitters (NTO) is planning to create a native employee-facing mobile app with the look and feel of Salesforce Lightning Experience. The mobile app needs to integrate with NTO's Salesforce org. Which Salesforce API should be used to implement this integration?",
+        options: [
+          { value: "A", text: "REST API" },
+          { value: "B", text: "User Interface API" },
+          { value: "C", text: "Connect REST API" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "The User Interface API is designed to build apps with the look and feel of Lightning Experience, providing UI-optimized responses for mobile integration.",
+        incorrectExplanations: {
+          "A": "The REST API provides raw data access but doesn’t optimize for Lightning UI rendering.",
+          "C": "The Connect REST API is for community integrations, not for native mobile apps mimicking Lightning Experience."
+        }
+      },
+      {
+        id: 50,
+        text: "An integration architect needs to build a solution that will use the Streaming API, but the data loss should be minimized, even when the client re-connects every couple of days. Which two types of Streaming API events should be considered?",
+        options: [
+          { value: "A", text: "Change Data Capture and High Volume Platform Events" },
+          { value: "B", text: "High Volume Platform Events and Generic Events" },
+          { value: "C", text: "PushTopic and Change Data Capture Events" }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Change Data Capture and High Volume Platform Events both support replay capabilities (via ReplayID), minimizing data loss by allowing clients to retrieve missed events even after days.",
+        incorrectExplanations: {
+          "B": "Generic Events don’t support replay, risking data loss if the client disconnects.",
+          "C": "PushTopic Events have limited retention (24 hours), which may lead to data loss if the client reconnects after a couple of days."
+        }
+      },
+      {
+        id: 51,
+        text: "A company's security assessment noted vulnerabilities on the unmanaged packages in its Salesforce orgs; notably, secrets that are easily accessible and in plain text, such as usernames, passwords, and OAuth tokens used in callouts from Salesforce. Which persistence mechanism could an integration architect require to be used to ensure that secrets are protected from deliberate or inadvertent exposure?",
+        options: [
+          { value: "A", text: "Protected Custom Metadata Types and Named Credentials" },
+          { value: "B", text: "Encrypted Custom Fields and Protected Custom Settings" },
+          { value: "C", text: "Named Credentials and Protected Custom Settings" }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "Named Credentials securely store authentication secrets for external callouts, and Protected Custom Settings ensure sensitive data is protected from exposure, addressing the security concerns.",
+        incorrectExplanations: {
+          "A": "Protected Custom Metadata Types are read-only at runtime and less suited for dynamic secrets like OAuth tokens.",
+          "B": "Encrypted Custom Fields are for field-level encryption, not ideal for managing integration secrets."
+        }
+      },
+      {
+        id: 52,
+        text: "Northern Trail Outfitters needs to make synchronous callouts to 'available-to-promise' services to query product availability and reserve inventory during the customer checkout process. What should an integration architect consider when building a scalable integration solution?",
+        options: [
+          { value: "A", text: "The maximum query cursors open per user on the service" },
+          { value: "B", text: "The typical and worst-case historical response times" },
+          { value: "C", text: "The number of batch jobs that can run concurrently" }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "For synchronous callouts, historical response times (typical and worst-case) are critical to ensure scalability, especially during checkout when delays can impact user experience.",
+        incorrectExplanations: {
+          "A": "Query cursors are more relevant for database queries, not synchronous API callouts.",
+          "C": "Batch jobs are for asynchronous processes, not relevant for synchronous callouts."
+        }
+      },
+      {
+        id: 53,
+        text: "Northern Trail Outfitters (NTO) wants to improve the quality of callouts from Salesforce to its REST APIs. For this purpose, NTO will require all API clients/consumers to adhere to REST API Markup Language (RAML) specifications that include the field-level definition of every API request and response payload. The RAML specs serve as interface contracts that Apex REST API Clients can rely on. Which design specification should the integration architect include in the integration architecture to ensure that Apex REST API Clients' unit tests confirm adherence to the RAML specs?",
+        options: [
+          { value: "A", text: "Require the Apex REST API Clients to implement the HttpCalloutMock." },
+          { value: "B", text: "Call the Apex REST API Clients in a test context to get the mock response." },
+          { value: "C", text: "Call the HttpCalloutMock implementation from the Apex REST API Clients." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Requiring Apex REST API Clients to implement HttpCalloutMock ensures that unit tests can mock responses based on RAML specs, confirming adherence during testing.",
+        incorrectExplanations: {
+          "B": "Calling clients in a test context is vague and doesn’t ensure RAML adherence.",
+          "C": "Calling HttpCalloutMock from clients is incorrect; clients should implement the mock interface."
+        }
+      },
+    
+          {
+        id: 54,
+        text: "Northern Trail Outfitters (NTO) wants to improve the quality of callouts from Salesforce to its REST APIs. For this purpose, NTO will require all API clients/consumers to adhere to REST API Markup Language (RAML) specifications that include the field-level definition of every API request and response payload. The RAML specs serve as interface contracts that Apex REST API Clients can rely on. Which design specification should the integration architect include in the integration architecture to ensure that Apex REST API Clients' unit tests confirm adherence to the RAML specs?",
+        options: [
+          { value: "A", text: "Require the Apex REST API Clients to implement the HttpCalloutMock." },
+          { value: "B", text: "Call the Apex REST API Clients in a test context to get the mock response." },
+          { value: "C", text: "Call the HttpCalloutMock implementation from the Apex REST API Clients." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Requiring Apex REST API Clients to implement HttpCalloutMock ensures that unit tests can mock responses based on RAML specs, confirming adherence during testing.",
+        incorrectExplanations: {
+          "B": "Calling clients in a test context is vague and doesn’t ensure RAML adherence.",
+          "C": "Calling HttpCalloutMock from clients is incorrect; clients should implement the mock interface."
+        }
+      },
+    
+
+
+      {
+        id: 55,
+        text: "Northern Trail Outfitters (NTO) leverages Heroku to host a MuleSoft application that exposes an API to handle customer payment transactions in Salesforce. When a customer makes a payment, Salesforce makes a synchronous callout to MuleSoft, which then makes synchronous callouts to a third-party payment gateway. The third-party payment gateway takes 8 seconds to respond with the payment transaction status, which is then relayed back to MuleSoft and then to Salesforce. The MuleSoft application has a timeout setting of 5 seconds for the third-party payment gateway callout. What will happen when a customer attempts a payment transaction in Salesforce?",
+        options: [
+          { value: "A", text: "The MuleSoft application will timeout after 5 seconds and return an error to Salesforce." },
+          { value: "B", text: "The MuleSoft application will wait for 8 seconds and successfully return the payment transaction status to Salesforce." },
+          { value: "C", text: "Salesforce will timeout after 5 seconds and display an error to the customer." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "The MuleSoft application has a timeout setting of 5 seconds for the third-party payment gateway callout, but the gateway takes 8 seconds to respond. Therefore, MuleSoft will timeout after 5 seconds and return an error to Salesforce, as it cannot wait longer than its configured timeout.",
+        incorrectExplanations: {
+          "B": "The MuleSoft application cannot wait for 8 seconds because its timeout is set to 5 seconds, so it will not successfully return the status.",
+          "C": "Salesforce’s timeout isn’t specified here, but the MuleSoft application will timeout first at 5 seconds, so the error originates from MuleSoft, not Salesforce."
+        }
+      },
+      {
+        id: 56,
+        text: "Northern Trail Outfitters submits a request to change its sandbox to Developer Pro. The migration from Developer to Developer Pro includes a new org with a new set of metadata that wipes out customizations made in the Developer sandbox. Which feature should an integration architect recommend to avoid the loss of customization?",
+        options: [
+          { value: "A", text: "Create a new Developer Pro sandbox from Production and redeploy the customization." },
+          { value: "B", text: "Clone the Developer sandbox and upgrade the clone to Developer Pro." },
+          { value: "C", text: "Create a sandbox template with all the customization." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Creating a new Developer Pro sandbox from Production ensures that all customizations are preserved, as Production typically contains the most up-to-date metadata. Redeploying the customization to the new sandbox avoids loss during the migration.",
+        incorrectExplanations: {
+          "B": "Cloning a Developer sandbox and upgrading it to Developer Pro will still result in metadata being wiped, as the upgrade process creates a new org.",
+          "C": "Sandbox templates define data and metadata to include in a new sandbox but may not preserve all customizations if not configured comprehensively."
+        }
+      },
+      {
+        id: 57,
+        text: "An integration architect needs to build a solution using MuleSoft to load data into Salesforce from an external system via a REST API. The external system requires OAuth 2.0 for authentication, and the solution must handle up to 5 million records daily in near real time. Which solution should the architect recommend?",
+        options: [
+          { value: "A", text: "Use MuleSoft to authenticate via OAuth 2.0 and make synchronous REST API callouts to Salesforce in batches." },
+          { value: "B", text: "Use MuleSoft to authenticate via OAuth 2.0, transform the data, and use the Salesforce Bulk API v2 to upsert the records." },
+          { value: "C", text: "Use MuleSoft to authenticate via OAuth 2.0 and stream the data to Salesforce using Platform Events." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "For handling 5 million records daily in near real time, the Salesforce Bulk API v2 is the most efficient choice, as it’s designed for high-volume data loads. MuleSoft can authenticate via OAuth 2.0, transform the data, and use Bulk API v2 to upsert records in batches, meeting the volume and timing requirements.",
+        incorrectExplanations: {
+          "A": "Synchronous REST API callouts for 5 million records would be inefficient and likely hit API limits, failing the near real-time requirement.",
+          "C": "Streaming via Platform Events is not ideal for bulk data loads of this scale and may not guarantee near real-time processing for such a high volume."
+        }
+      },
+      {
+        id: 58,
+        text: "Northern Trail Outfitters (NTO) has a legacy system that generates 10,000 leads daily and pushes them to Salesforce via a SOAP API. The legacy system does not support OAuth 2.0, and NTO wants to ensure the integration is secure. Which authentication method should an integration architect recommend?",
+        options: [
+          { value: "A", text: "Use a username and password with a secure API token in the SOAP API request." },
+          { value: "B", text: "Use Salesforce Connect with a custom adapter to authenticate the legacy system." },
+          { value: "C", text: "Implement a custom OAuth 2.0 flow in the legacy system to integrate with Salesforce." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Since the legacy system does not support OAuth 2.0, using a username and password with a secure API token in the SOAP API request is a practical and secure method for authentication, ensuring the integration meets security requirements.",
+        incorrectExplanations: {
+          "B": "Salesforce Connect is for external data virtualization, not for authenticating SOAP API integrations from a legacy system.",
+          "C": "Implementing a custom OAuth 2.0 flow in the legacy system is not feasible since the system doesn’t support OAuth 2.0."
+        }
+      },
+      {
+        id: 59,
+        text: "Northern Trail Outfitters (NTO) wants to integrate Salesforce with an external HR system to sync employee data. The HR system supports REST APIs and requires mutual TLS authentication for secure communication. What should an integration architect recommend to establish secure communication between Salesforce and the HR system?",
+        options: [
+          { value: "A", text: "Configure a Named Credential with a client certificate and enable mutual TLS authentication." },
+          { value: "B", text: "Use a custom Apex REST class to handle mutual TLS authentication with the HR system." },
+          { value: "C", text: "Implement a middleware solution to proxy requests and handle mutual TLS authentication." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Named Credentials in Salesforce support mutual TLS authentication by allowing the configuration of a client certificate, providing a secure and native way to establish communication with the HR system.",
+        incorrectExplanations: {
+          "B": "A custom Apex REST class to handle mutual TLS is unnecessary and complex, as Named Credentials natively support this.",
+          "C": "Using middleware adds unnecessary complexity when Salesforce Named Credentials can handle mutual TLS authentication directly."
+        }
+      },
+      {
+        id: 60,
+        text: "A company is implementing a new Salesforce org to replace a legacy CRM system. The legacy system has 20 years of customer data that must be migrated to Salesforce, totaling 50 million records. The migration must minimize downtime and ensure data integrity. Which approach should an integration architect recommend for the data migration?",
+        options: [
+          { value: "A", text: "Use the Salesforce Data Loader to migrate records in batches during off-peak hours." },
+          { value: "B", text: "Use the Bulk API to migrate records in parallel with error handling and logging." },
+          { value: "C", text: "Perform a one-time migration using a custom Apex script to upsert records." }
+        ],
+        correct: "B",
+        multiple: false,
+        explanation: "The Bulk API is designed for high-volume data migrations like 50 million records, supporting parallel processing, error handling, and logging to ensure data integrity and minimize downtime by efficiently handling large batches.",
+        incorrectExplanations: {
+          "A": "Salesforce Data Loader is suitable for smaller datasets but may be slower for 50 million records, even in batches, and lacks robust parallel processing.",
+          "C": "A custom Apex script for 50 million records would hit governor limits and is not scalable for such a large migration."
+        }
+      },
+      {
+        id: 61,
+        text: "Northern Trail Outfitters (NTO) has a requirement to send real-time order updates from Salesforce to an external warehouse management system (WMS) whenever an order status changes. The WMS supports REST APIs, and NTO wants to ensure updates are sent reliably even if the WMS is temporarily unavailable. Which integration pattern should an integration architect recommend?",
+        options: [
+          { value: "A", text: "Use a Platform Event to publish order updates and have the WMS subscribe to the events." },
+          { value: "B", text: "Make synchronous REST API callouts from Salesforce to the WMS on order status changes." },
+          { value: "C", text: "Use Outbound Messaging to send order updates to the WMS via SOAP." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Platform Events enable an event-driven architecture where Salesforce can publish order updates, and the WMS can subscribe to them. This ensures reliability, as events can be replayed if the WMS is temporarily unavailable, using the ReplayID feature.",
+        incorrectExplanations: {
+          "B": "Synchronous REST API callouts will fail if the WMS is unavailable, not meeting the reliability requirement.",
+          "C": "Outbound Messaging uses SOAP and may not support REST APIs directly, and its reliability depends on the WMS being available at the time of the message."
+        }
+      },
+      {
+        id: 62,
+        text: "A company wants to integrate Salesforce with an external inventory system that provides real-time stock levels via a REST API. The integration must ensure that stock levels are updated in Salesforce every 5 minutes. Which approach should an integration architect recommend to achieve this requirement?",
+        options: [
+          { value: "A", text: "Use a scheduled Apex job to call the REST API every 5 minutes and update Salesforce records." },
+          { value: "B", text: "Use Platform Events to publish stock updates every 5 minutes from the inventory system." },
+          { value: "C", text: "Implement a Lightning Web Component to poll the REST API every 5 minutes." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "A scheduled Apex job running every 5 minutes can call the REST API to fetch stock levels and update Salesforce records, ensuring a server-side, reliable, and automated solution for real-time updates.",
+        incorrectExplanations: {
+          "B": "Platform Events are for event-driven integrations, but the inventory system would need to publish events, which isn’t specified as supported.",
+          "C": "Polling via a Lightning Web Component is client-side and not suitable for background, server-side updates every 5 minutes."
+        }
+      },
+      {
+        id: 63,
+        text: "Northern Trail Outfitters (NTO) needs to integrate Salesforce with an external marketing platform to send campaign data. The marketing platform requires campaign data to be sent in JSON format via a REST API, and the integration must handle up to 1 million records daily. Which solution should an integration architect recommend?",
+        options: [
+          { value: "A", text: "Use a custom Apex REST service to serialize campaign data to JSON and send it to the marketing platform." },
+          { value: "B", text: "Use the Salesforce REST API to send campaign data in batches to the marketing platform." },
+          { value: "C", text: "Use MuleSoft to extract campaign data, transform it to JSON, and send it to the marketing platform via REST API." }
+        ],
+        correct: "C",
+        multiple: false,
+        explanation: "MuleSoft is ideal for handling high-volume integrations (1 million records daily), extracting data from Salesforce, transforming it to JSON, and sending it via REST API to the marketing platform, ensuring scalability and reliability.",
+        incorrectExplanations: {
+          "A": "A custom Apex REST service to handle 1 million records daily would be inefficient and hit governor limits in Salesforce.",
+          "B": "The Salesforce REST API is not designed for outbound batch processing of this scale and would be less efficient than MuleSoft."
+        }
+      },
+      {
+        id: 64,
+        text: "A company is integrating Salesforce with an external ERP system to sync order data. The ERP system requires order updates to be sent in near real time, and the integration must handle potential failures gracefully. Which Salesforce feature should an integration architect recommend to meet this requirement?",
+        options: [
+          { value: "A", text: "Use Change Data Capture to capture order updates and send them to the ERP system." },
+          { value: "B", text: "Use a custom Apex trigger to make synchronous callouts to the ERP system." },
+          { value: "C", text: "Use Workflow Rules with Outbound Messaging to send order updates to the ERP system." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Change Data Capture (CDC) captures order updates in near real time and allows the ERP system to subscribe to these events, handling failures gracefully with replay capabilities, ensuring reliable delivery.",
+        incorrectExplanations: {
+          "B": "Synchronous callouts via Apex triggers are not ideal for near real-time updates and may fail without retry mechanisms if the ERP system is unavailable.",
+          "C": "Workflow Rules with Outbound Messaging are less flexible for near real-time updates and lack the robust retry capabilities of CDC."
+        }
+      },
+      {
+        id: 65,
+        text: "Northern Trail Outfitters (NTO) wants to integrate Salesforce with an external analytics platform to send customer interaction data for reporting. The analytics platform supports REST APIs, and NTO wants to ensure the data is sent securely with minimal latency. Which authentication and integration method should an integration architect recommend?",
+        options: [
+          { value: "A", text: "Use Named Credentials with OAuth 2.0 and make synchronous REST API callouts from Salesforce." },
+          { value: "B", text: "Use a username and password in the REST API call with SSL encryption." },
+          { value: "C", text: "Use Platform Events to publish interaction data and have the analytics platform subscribe." }
+        ],
+        correct: "A",
+        multiple: false,
+        explanation: "Named Credentials with OAuth 2.0 provide a secure authentication method, and synchronous REST API callouts ensure minimal latency for sending data to the analytics platform, meeting the security and performance requirements.",
+        incorrectExplanations: {
+          "B": "Using a username and password in the API call is less secure than OAuth 2.0, even with SSL encryption.",
+          "C": "Platform Events introduce asynchronous processing, which may add latency compared to synchronous REST callouts."
+        }
+      }
+      ];
+      
+
+    let currentQuestionIndex = 0;
+    const selectedAnswers = {};
+    const correctAnswers = {};
+    const markedQuestions = new Set();
+
+    function loadQuestion(index) {
+      const question = questions[index];
+      document.getElementById('progress').textContent = `Question ${index + 1} of ${questions.length}`;
+      document.getElementById('question-text').textContent = question.text;
+
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = '';
+
+      question.options.forEach(option => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        const inputType = question.multiple ? 'checkbox' : 'radio';
+        const input = document.createElement('input');
+        input.type = inputType;
+        input.name = 'option';
+        input.value = option.value;
+        input.id = `option-${option.value}`;
+        if (question.multiple) {
+          input.checked = selectedAnswers[index]?.includes(option.value) || false;
+        } else {
+          input.checked = selectedAnswers[index] === option.value;
+        }
+        const label = document.createElement('label');
+        label.htmlFor = `option-${option.value}`;
+        label.textContent = option.text;
+        div.appendChild(input);
+        div.appendChild(label);
+
+        // Add click event to the entire option div
+        div.addEventListener('click', (e) => {
+          // Prevent double-triggering if the input or label is clicked directly
+          if (e.target === input || e.target === label) return;
+
+          if (question.multiple) {
+            input.checked = !input.checked;
+            if (!selectedAnswers[index]) selectedAnswers[index] = [];
+            if (input.checked) {
+              selectedAnswers[index].push(option.value);
+            } else {
+              selectedAnswers[index] = selectedAnswers[index].filter(val => val !== option.value);
+            }
+          } else {
+            // For single-choice, uncheck other options and check the clicked one
+            document.querySelectorAll(`input[name="option"]`).forEach(opt => {
+              opt.checked = false;
+            });
+            input.checked = true;
+            selectedAnswers[index] = option.value;
+          }
+          showFeedback(index);
+        });
+
+        // Handle direct input changes (for accessibility)
+        input.addEventListener('change', () => {
+          if (question.multiple) {
+            if (!selectedAnswers[index]) selectedAnswers[index] = [];
+            if (input.checked) {
+              selectedAnswers[index].push(option.value);
+            } else {
+              selectedAnswers[index] = selectedAnswers[index].filter(val => val !== option.value);
+            }
+          } else {
+            selectedAnswers[index] = option.value;
+          }
+          showFeedback(index);
+        });
+
+        optionsContainer.appendChild(div);
+      });
+
+      const feedback = document.getElementById('feedback');
+      feedback.style.display = 'none';
+
+      document.getElementById('mark-checkbox').checked = markedQuestions.has(index);
+      document.getElementById('prev-btn').disabled = index === 0;
+      document.getElementById('next-btn').disabled = index === questions.length - 1;
+    }
+
+    function showFeedback(index) {
+      const question = questions[index];
+      const userAnswer = selectedAnswers[index];
+      const feedback = document.getElementById('feedback');
+
+      if (!userAnswer) {
+        feedback.textContent = 'Please select an answer.';
+        feedback.className = 'feedback mt-4 p-4 rounded bg-red-100 text-red-800';
+        feedback.style.display = 'block';
+        return false;
+      }
+
+      let isCorrect;
+      let userAnswerText;
+      const correctAnswerText = question.multiple
+        ? question.correct.map(val => question.options.find(opt => opt.value === val).text).join(', ')
+        : question.options.find(opt => opt.value === question.correct).text;
+
+      if (question.multiple) {
+        const sortedUserAnswer = userAnswer.slice().sort();
+        const sortedCorrectAnswer = question.correct.slice().sort();
+        isCorrect = sortedUserAnswer.length === sortedCorrectAnswer.length &&
+                   sortedUserAnswer.every((val, i) => val === sortedCorrectAnswer[i]);
+        userAnswerText = userAnswer.map(val => question.options.find(opt => opt.value === val).text).join(', ');
+      } else {
+        isCorrect = userAnswer === question.correct;
+        userAnswerText = question.options.find(opt => opt.value === userAnswer).text;
+      }
+
+      correctAnswers[index] = isCorrect;
+
+      if (isCorrect) {
+        feedback.textContent = `Correct! Your answer: ${userAnswerText}. Explanation: ${question.explanation}`;
+        feedback.className = 'feedback mt-4 p-4 rounded bg-green-100 text-green-800';
+      } else {
+        const incorrectExplanation = question.multiple
+          ? "Your selection does not match all the correct options. "
+          : `Incorrect. Your answer: ${userAnswerText}. Why it's wrong: ${question.incorrectExplanations[userAnswer] || "This option does not address the core requirement of the question."}`;
+        feedback.textContent = `${incorrectExplanation} Correct Answer: ${correctAnswerText}. Explanation: ${question.explanation}`;
+        feedback.className = 'feedback mt-4 p-4 rounded bg-red-100 text-red-800';
+      }
+      feedback.style.display = 'block';
+      return true;
+    }
+
+    function showAnswer(index) {
+      const question = questions[index];
+      const feedback = document.getElementById('feedback');
+      const correctAnswerText = question.multiple
+        ? question.correct.map(val => question.options.find(opt => opt.value === val).text).join(', ')
+        : question.options.find(opt => opt.value === question.correct).text;
+      feedback.textContent = `Correct Answer: ${correctAnswerText}. ${question.explanation}`;
+      feedback.className = 'feedback mt-4 p-4 rounded bg-green-100 text-green-800';
+      feedback.style.display = 'block';
+    }
+
+    function showReview() {
+      const quizContainer = document.getElementById('quiz-container');
+      const reviewContainer = document.getElementById('review-container');
+      const listContainer = document.getElementById('list-container');
+      quizContainer.className = 'main-container hidden';
+      listContainer.className = 'main-container hidden';
+      reviewContainer.className = 'main-container';
+
+      const attempted = Object.keys(selectedAnswers).length;
+      const remaining = questions.length - attempted;
+      document.getElementById('review-summary').innerHTML = `
+        <p class="text-lg font-semibold">Attempted: ${attempted} questions</p>
+        <p>Remaining: ${remaining} questions</p>
+        <p>Marked: ${markedQuestions.size} questions</p>
+      `;
+
+      const details = document.getElementById('review-details');
+      details.innerHTML = '';
+      questions.forEach((question, index) => {
+        const userAnswer = selectedAnswers[index] || 'Not Answered';
+        const userAnswerText = question.multiple
+          ? (Array.isArray(userAnswer) ? userAnswer.map(val => question.options.find(opt => opt.value === val).text).join(', ') : userAnswer)
+          : question.options.find(opt => opt.value === userAnswer)?.text || userAnswer;
+        details.innerHTML += `
+          <div class="mb-4 p-4 border rounded">
+            <p><strong>Question ${index + 1}:</strong> ${question.text}</p>
+            <p><strong>Your Answer:</strong> ${userAnswerText}</p>
+            ${markedQuestions.has(index) ? '<p><strong>Marked:</strong> Yes</p>' : ''}
+          </div>
+        `;
+      });
+    }
+
+    function showList() {
+      const quizContainer = document.getElementById('quiz-container');
+      const reviewContainer = document.getElementById('review-container');
+      const listContainer = document.getElementById('list-container');
+      quizContainer.className = 'main-container hidden';
+      reviewContainer.className = 'main-container hidden';
+      listContainer.className = 'main-container';
+
+      const details = document.getElementById('list-details');
+      details.innerHTML = '';
+      questions.forEach((question, index) => {
+        const status = selectedAnswers[index] ? 'Answered' : 'Unanswered';
+        const marked = markedQuestions.has(index) ? 'Marked' : '';
+        details.innerHTML += `
+          <div class="list-item mb-4 p-4 border rounded">
+            <p>Question ${index + 1}: ${question.text.substring(0, 50)}...</p>
+            <div class="status">
+              <span>${status}</span>
+              ${marked ? '<span class="marked ml-2">' + marked + '</span>' : ''}
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function showResults() {
+      const quizContainer = document.getElementById('quiz-container');
+      const reviewContainer = document.getElementById('review-container');
+      const listContainer = document.getElementById('list-container');
+      const resultsContainer = document.getElementById('results-container');
+      quizContainer.className = 'main-container hidden';
+      reviewContainer.className = 'main-container hidden';
+      listContainer.className = 'main-container hidden';
+      resultsContainer.className = 'main-container';
+
+      let correctCount = Object.values(correctAnswers).filter(val => val).length;
+      let totalQuestions = questions.length;
+      let percentage = ((correctCount / totalQuestions) * 100).toFixed(2);
+
+      document.getElementById('results-summary').innerHTML = `
+        <p class="text-lg font-semibold">You scored ${correctCount} out of ${totalQuestions} (${percentage}%)</p>
+        <p>${percentage >= 70 ? 'Congratulations, you passed!' : 'You need more practice.'}</p>
+      `;
+
+      const details = document.getElementById('results-details');
+      details.innerHTML = '';
+      questions.forEach((question, index) => {
+        const userAnswer = selectedAnswers[index] || 'Not Answered';
+        const isCorrect = correctAnswers[index];
+        const userAnswerText = question.multiple
+          ? (Array.isArray(userAnswer) ? userAnswer.map(val => question.options.find(opt => opt.value === val).text).join(', ') : userAnswer)
+          : question.options.find(opt => opt.value === userAnswer)?.text || userAnswer;
+        const correctAnswerText = question.multiple
+          ? question.correct.map(val => question.options.find(opt => opt.value === val).text).join(', ')
+          : question.options.find(opt => opt.value === question.correct).text;
+        details.innerHTML += `
+          <div class="mb-4 p-4 border rounded ${isCorrect ? 'bg-green-100' : 'bg-red-100'}">
+            <p><strong>Question ${index + 1}:</strong> ${question.text}</p>
+            <p><strong>Your Answer:</strong> ${userAnswerText}</p>
+            <p><strong>Correct Answer:</strong> ${correctAnswerText}</p>
+            <p><strong>Explanation:</strong> ${question.explanation}</p>
+            ${markedQuestions.has(index) ? '<p><strong>Marked:</strong> Yes</p>' : ''}
+          </div>
+        `;
+      });
+    }
+
+    document.getElementById('mark-checkbox').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        markedQuestions.add(currentQuestionIndex);
+      } else {
+        markedQuestions.delete(currentQuestionIndex);
+      }
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+      }
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+      }
+    });
+
+    document.getElementById('review-btn').addEventListener('click', () => {
+      showReview();
+    });
+
+    document.getElementById('show-answer-btn').addEventListener('click', () => {
+      showAnswer(currentQuestionIndex);
+    });
+
+    document.getElementById('show-list-btn').addEventListener('click', () => {
+      showList();
+    });
+
+    document.getElementById('save-session-btn').addEventListener('click', () => {
+      console.log('Session saved:', { selectedAnswers, markedQuestions });
+      alert('Session saved! (Check console for details)');
+    });
+
+    document.getElementById('end-exam-btn').addEventListener('click', () => {
+      const attempted = Object.keys(selectedAnswers).length;
+      const remaining = questions.length - attempted;
+      const confirmSubmit = confirm(`You have attempted ${attempted} questions. ${remaining} questions remain unanswered. Are you sure you want to end the exam?`);
+      if (confirmSubmit) {
+        showResults();
+      }
+    });
+
+    // Load the first question
+    loadQuestion(currentQuestionIndex);
+  </script>
+</body>
+</html>
