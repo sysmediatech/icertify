@@ -1,0 +1,65 @@
+
+    /* Ensure valid CSS with Tailwind overrides where needed */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-container {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1rem;
+      background-color: #ffffff;
+      flex-grow: 1;
+    }
+    .footer {
+      background-color: #f5f5f5;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #d1d5db;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    .option:hover {
+      background-color: #f9fafb;
+    }
+    .option input {
+      margin-right: 0.75rem;
+    }
+    .mark-btn {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      color: #2563eb;
+      cursor: pointer;
+    }
+    .mark-btn input {
+      margin-right: 0.5rem;
+    }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .list-item .status {
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    .list-item .marked {
+      color: #2563eb;
+      font-weight: 500;
+    }
+  
